@@ -1,0 +1,6 @@
+# Cuando usar builder, cuando factory y cuando singleton.
+
+**La diferencia sería al contruir, es decir, si se ve complejo el objeto a construir es recomendable builder.**
+
+**Singleton tiene el objeto instanciado estatico. Cuando hay una determinada clase, que queremos que haya una instancia única**
+
