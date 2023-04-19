@@ -1,0 +1,113 @@
+/* General */
+:root{
+    --darkblue: #0a2138;
+    --blue: #12648a;
+    --lightblue: #25baff;
+    --white: #fff;
+    --black: #000;
+    --purple: #e0b5fa;
+}
+
+/* Sections*/
+body{
+    background-color: var(--purple);
+}
+
+header{
+    background-color: var(--white);
+    height: 40px;
+}
+   
+nav{
+    margin-top: 40px;
+    text-align: center;
+}
+ a{
+    margin-left: 130px;
+ }
+
+  
+
+section{
+    background-color: var(--white);
+}
+/*clases*/
+.small-card{
+    position: absolute;
+    background-color: var(--white);
+    top: 250px;
+    left: 150px;
+    border: 2px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 300px;
+    display: inline-block;
+    overflow: hidden;
+}
+.small-card:hover{
+    transition: 2.5s;
+    transform: scale(1.5);
+}
+
+.tall-card{
+    position: absolute;
+    background-color: var(--white);
+    top: 250px;
+    left: 650px;
+    border: 2px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 200px;
+    display: inline-block;
+    overflow: hidden;
+}
+.tall-card:hover{
+    transition: 2.5s;
+    transform: scale(1.5);
+}
+.small-card2{
+    position: absolute;
+    background-color: var(--white);
+    top: 250px;
+    left: 1050px;
+    border: 2px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 200px;
+    display: inline-block;
+    overflow: hidden;
+}
+.small-card2:hover{
+    transition: 2.5s;
+    transform: scale(1.5);
+}
+.tall-card2{
+    position: absolute;
+    background-color: var(--white);
+    top: 250px;
+    left: 1500px;
+    border: 2px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 200px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.tall-card2:hover{
+    transition: 2.5s;
+    transform: scale(1.5);
+}
+.small{
+    width: 200px;
+    height: 150px;
+}
+
+.big{
+    width: 200px;
+    height: 300px;
+}
+
+.jesucrist{
+    align-content: center;
+}
