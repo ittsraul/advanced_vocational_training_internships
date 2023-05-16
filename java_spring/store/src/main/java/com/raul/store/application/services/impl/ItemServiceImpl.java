@@ -6,6 +6,8 @@ import com.raul.store.application.services.ItemService;
 import com.raul.store.domain.entity.Item;
 import com.raul.store.domain.persistence.ItemPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +22,12 @@ public class ItemServiceImpl implements ItemService {
     public ItemServiceImpl(ItemPersistence itemPersistence, ItemMapper itemMapper) {
         this.itemPersistence = itemPersistence;
         this.itemMapper = itemMapper;
+    }
+
+    @Override
+    public Page<ItemDTO> getItemsByCriteriaStringPaged(Pageable pageable, String filter) {
+        Page<Item> itemPage = this.itemPersistence.findAll(pageable, filter);
+        return itemPage.map(itemMapper::toDto);
     }
 
     @Override
