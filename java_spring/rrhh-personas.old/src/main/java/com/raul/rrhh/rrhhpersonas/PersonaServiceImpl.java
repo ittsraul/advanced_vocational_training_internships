@@ -1,6 +1,7 @@
 package com.raul.rrhh.rrhhpersonas;
 
-import java.util.optional;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,15 +23,5 @@ public class PersonaServiceImpl implements PersonaService {
 	@Override
 	public Persona createPersona(Persona persona) {
 		return personaRepository.save(persona);
-	}
-
-	@Override
-	public void deletePersona(Integer id){
-		personaRepository.deleteById(id);
-	}
-
-	@Override
-	public Optional<Persona> getPersona(Integer id){
-		return personaRepository.findById(id);
 	}
 }
