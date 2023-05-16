@@ -1,1 +1,22 @@
-<p>header works!</p>
+<header class="mb-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a href="#" class="navbar-brand">STORE</a>
+        <button class="navbar-toggler" type="button" data-bs-toggler="page" href="#">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['home']" class="nav-link text-uppercase" aria-current="page">inicio</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['categories']" class="nav-link text-uppercase" aria-current="page">Categorias</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                    <a [routerLink]="['items']" class="nav-link text-uppercase" aria-current="page">Articulos</a>
+                </li>
+                
+            </div>
+        </div>
+    </nav>
+</header>

@@ -14,6 +14,10 @@ public class ItemPersistenceImpl implements ItemPersistence {
     }
 
     @Override
+    public List<Item> getAllItems(){
+        return this.itemRepo.findAll();
+    }
+    @Override
     public List<Item> getAllItemsByCategory(Long itemId) {
        return this.itemRepo.findByCategoryId(itemId);
     }
