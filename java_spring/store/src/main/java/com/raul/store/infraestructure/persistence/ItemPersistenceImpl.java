@@ -6,7 +6,7 @@ import com.raul.store.infraestructure.specs.shared.SearchCriteriaHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.kreitek.store.infrastructure.specs.ItemSpecification;
+import com.raul.store.infraestructure.specs.ItemSpecification;
 
 import java.util.List;
 import java.util.Optional;

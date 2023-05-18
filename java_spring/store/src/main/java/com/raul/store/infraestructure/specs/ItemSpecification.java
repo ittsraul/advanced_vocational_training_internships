@@ -1,4 +1,4 @@
-package com.kreitek.store.infrastructure.specs;
+package com.raul.store.infraestructure.specs;
 
 
 import com.raul.store.domain.entity.Item;
