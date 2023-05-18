@@ -1,7 +1,4 @@
-package com.raul.store.infraestructure.specs.shared;
-
-
-import com.raul.store.domain.entity.Item;
+package com.raul.store.infrastructure.specs.shared;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -12,7 +9,7 @@ import java.util.List;
 
 public abstract class EntitySpecification<T> {
 
-    protected List<com.raul.store.infrastructure.specs.shared.SearchCriteria> criteria;
+    protected List<SearchCriteria> criteria;
 
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 

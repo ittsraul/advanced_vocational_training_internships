@@ -1,12 +1,12 @@
-package com.raul.store.infraestructure.persistence;
+package com.raul.store.infrastructure.persistence;
 
 import com.raul.store.domain.entity.Item;
 import com.raul.store.domain.persistence.ItemPersistence;
-import com.raul.store.infraestructure.specs.shared.SearchCriteriaHelper;
+import com.raul.store.infrastructure.specs.shared.SearchCriteriaHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.raul.store.infraestructure.specs.ItemSpecification;
+import com.raul.store.infrastructure.specs.ItemSpecification;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +25,7 @@ public class ItemPersistenceImpl implements ItemPersistence {
     }
     @Override
     public List<Item> getAllItemsByCategory(Long itemId) {
-       return this.itemRepo.findByCategoryId(itemId);
+       return this.itemRepo.findAllByCategoryId(itemId);
     }
 
     @Override

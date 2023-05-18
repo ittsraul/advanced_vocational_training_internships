@@ -1,9 +1,7 @@
-package com.raul.store.infraestructure.specs.shared;
-
+package com.raul.store.infrastructure.specs.shared;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.raul.store.infrastructure.specs.shared.SearchCriteria;
 
 public  class SearchCriteriaHelper {
 

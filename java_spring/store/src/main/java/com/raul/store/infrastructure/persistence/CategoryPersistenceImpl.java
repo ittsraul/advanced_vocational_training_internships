@@ -1,6 +1,5 @@
-package com.raul.store.infraestructure.persistence;
+package com.raul.store.infrastructure.persistence;
 
-import com.raul.store.application.mapper.CategoryMapper;
 import com.raul.store.domain.entity.Category;
 import com.raul.store.domain.persistence.CategoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;

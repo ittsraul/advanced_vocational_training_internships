@@ -1,4 +1,4 @@
-package com.raul.store.infraestructure.rest;
+package com.raul.store.infrastructure.rest;
 
 import com.raul.store.application.dto.CategoryDTO;
 import com.raul.store.application.services.CategoryService;

@@ -1,4 +1,4 @@
-package com.raul.store.infraestructure.persistence;
+package com.raul.store.infrastructure.persistence;
 
 import com.raul.store.domain.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;

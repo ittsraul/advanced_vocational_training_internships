@@ -1,4 +1,4 @@
-package com.raul.store.infraestructure.specs.shared;
+package com.raul.store.infrastructure.specs.shared;
 
 public enum SearchOperation {
     GREATER_THAN,
