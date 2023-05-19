@@ -10,18 +10,18 @@ import { CategoryService } from '../service/category.service';
 export class CategoryListComponent {
   categories :Category[] = [];
 
-  constructor(private CategoryService : CategoryService){}
+  constructor(private categoryService : CategoryService){}
 
-  ngOnInit() :void {
-    this.getCategorias();
+  ngOnInit(): void {
+    this.getCategories();
   }
 
-  private getCategorias() :void{
-    this.CategoryService.getAllCategories().subscribe({
-      next: (categoriesRequest) =>{ this.categories = this.categoriesRequest;},
-      error: (err) => { this.handleError(err);}
-    });
-  }
+  private getCategories(): void {
+    this.categoryService.getAllCategories().subscribe({
+      next: (categoriesRequest) => {this.categories = categoriesRequest; },
+      error: (err) => {this.handleError(err);}
+    })
+  } 
 
   private handleError(error: any) :void{
     console.log(error);

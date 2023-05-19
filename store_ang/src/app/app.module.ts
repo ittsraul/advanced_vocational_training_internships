@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS  } from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { AutoCompleteModule} from 'primeng/autocomplete';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,8 +14,8 @@ import { CategoryListComponent } from './entities/category/category-list/categor
 import { CategoryFormComponent } from './entities/category/category-form/category-form.component';
 import { ItemListComponent } from './entities/item/item-list/item-list.component';
 import { ItemFormComponent } from './entities/item/item-form/item-form.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
+import { ItemsReactiveComponent } from './entities/item/items-reactive/items-reactive.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { MatCardModule } from '@angular/material/card';
     CategoryListComponent,
     CategoryFormComponent,
     ItemListComponent,
-    ItemFormComponent
+    ItemFormComponent,
+    ItemsReactiveComponent
   ],
   imports: [
     BrowserModule,
@@ -33,15 +36,16 @@ import { MatCardModule } from '@angular/material/card';
     MatCardModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AutoCompleteModule
   ],
-  /* providers: [
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: HttpRequestIntercept,
-    multi: true
-  } 
-],*/
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestIntercept,
+      multi: true
+    }
+  ], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,82 @@
+<h1>Ficha de articulo {{itemId}} {{node}}</h1>
+
+<!-- 
+    Previsualización json
+    <pre>
+    {{item | json}}
+</pre> -->
+
+<form *ngIf="itemForm"[formGroup]="itemForm!" novalidate autocomplete="off">
+    <!--id: solo visible si estamos en edicion-->
+    <div class="form-group">
+        <label for="">
+            Id
+        </label>
+        <input type="number"class="form-control" id="price" formControlName="id">
+    </div>
+
+    <!--Catgeoria ID-->
+    <div class="form-group">
+        <label for="">
+            Categoria
+        </label>
+        <p-autoComplete type="text" [(ngModel)]="selectedCategory" [suggestions]="categories" (onSelect)="categorySelected()" formControlName="selectedCategory" (completedMethod)="getAllCategories($event)" fiel="name" (onClear)="categoryUnselected()" [required]="true" [forceSelection]="true"></p-autoComplete>
+    </div>
+    
+    <!--Nombre-->
+    <div class="form-group">
+        <label for="">
+            Nombre
+        </label>
+        <input type="text" class="form-control" id="name" formControlName="name">
+    </div>
+    <!--Validation name-->
+    <div *ngIf="(itemForm.get('name')!.dirty && itemForm.get('name')!.errors)">
+        <small class="form-text text-danger"
+        *ngIf="itemForm.get('name')!.errors!['required']">
+        Este campo es requerido
+        </small>
+        <small class="form-text text-danger"
+        *ngIf="itemForm.get('name')!.errors!['minlength']">
+        Este campo tiene que tener una longitud mínima de 3 caracteres
+        </small>
+    </div>
+    <!--Descripción-->
+    <div class="form-group">
+        <label for="">
+            Description
+        </label>
+        <input type="text" class="form-control" formControlName="description" id="description">
+    </div>
+    <!--Precio-->
+    <div class="form-group">
+        <label for="">
+            Price
+        </label>
+        <input type="number"class="form-control" id="price" formControlName="price" 
+            required minlength="0">
+    </div>
+    <!--Validation price-->
+    <div *ngIf="itemForm.get('price')!.errors && itemForm.get('price')!.errors">
+        <small class="form-text text-danger" *ngIf="itemForm.get('price')!.errors!['required']!">
+        Este campo es requerido
+        </small>
+
+        <small class="form-text text-danger"  *ngIf="itemForm.get('name')!.errors!['min']">
+        El valor debe ser positivo
+        </small>
+
+    </div>
+    <!--Imagen-->
+    <div class="form-group">
+        <label for="">
+            image
+        </label>
+        <input type="file" class="form-control" id="image" formControlName="image" (change)="includeImageInItems($event)">
+        <img *ngIf="item!.image" [src]="'{{item.image}}'" alt="">
+    </div>
+
+    <div class="buttonForm">
+        <button (click)="saveItem()" [disabled]="itemForm.invalid">Guardar</button>
+    </div>
+</form>

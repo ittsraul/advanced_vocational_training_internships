@@ -4,22 +4,26 @@ import { ItemService } from '../service/item.service';
 import { items } from '../models/items/items.module';
 import { Category } from '../../category/models/category/category.module';
 import { CategoryService } from '../../category/service/category.service';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
-  selector: 'app-item-form',
-  templateUrl: './item-form.component.html',
-  styleUrls: ['./item-form.component.scss']
+  selector: 'app-items-reactive',
+  templateUrl: './items-reactive.component.html',
+  styleUrls: ['./items-reactive.component.scss']
 })
-export class ItemFormComponent implements OnInit {
-node: "NEW" | "UPDATE" = "NEW";
+export class ItemsReactiveComponent {
+  node: "NEW" | "UPDATE" = "NEW";
 itemId?: number;
 item?: items;
 selectedCategory?: Category;
 categories: Category[] = [];
 
-constructor(private route : ActivatedRoute, private itemService: ItemService, private categoryService: CategoryService){}
+itemForm :FormGroup;
+
+constructor(private route : ActivatedRoute,private fb : FormBuilder, private itemService: ItemService, private categoryService: CategoryService){}
 
   ngOnInit(): void {
+
+    this.buildForm();
     const entryParam: string =this.route.snapshot.paramMap.get("itemId") ?? "new"; 
     if(entryParam !== "new"){
       this.itemId = +this.route.snapshot.paramMap.get("itemId")!;
@@ -46,15 +50,18 @@ constructor(private route : ActivatedRoute, private itemService: ItemService, pr
   });
   }
   
-  public saveItem() :void{
+  public saveItem(): void {
+    const itemToSave: items = this.createFrom();
     if (this.node === "NEW") {
-      this.insertItem();
+      this.insertItem(itemToSave);
     }
 
     if (this.node === "UPDATE") {
-      this.updateItem();
+      this.updateItem(itemToSave);
     }
   }
+
+
 
   public categorySelected() :void{
     this.item!.categoryId = this.selectedCategory!.id;
@@ -113,8 +120,8 @@ constructor(private route : ActivatedRoute, private itemService: ItemService, pr
     }
   }
  
-  private insertItem():void{
-    this.itemService.insert(this.item!).subscribe({
+  private insertItem(itemToSave: items):void{
+    this.itemService.insert(itemToSave).subscribe({
       next: (itemInserted) => {
         console.log("Insertado Correctamente");
         console.log(itemInserted);
@@ -123,8 +130,8 @@ constructor(private route : ActivatedRoute, private itemService: ItemService, pr
     });
   }
 
-  private updateItem():void{
-    this.itemService.update(this.item!).subscribe({
+  private updateItem(itemToSave: items):void{
+    this.itemService.update(itemToSave).subscribe({
       next: (itemUpdated) => {
         console.log("Insertado Correctamente");
         console.log(itemUpdated);
@@ -137,12 +144,47 @@ constructor(private route : ActivatedRoute, private itemService: ItemService, pr
     this.itemService.getItemById(itemId).subscribe({
       next: (itemRequest) =>{
         this.item = itemRequest;
+        this.updateForm(itemRequest);
         this.selectedCategory = new Category(itemRequest.categoryId!, itemRequest.categoryName!)
       },
       error: (err) => {
         this.handleError(err);
       }
     });
+  }
+
+
+  private buildForm(): void {
+    this.itemForm = this.fb.group({
+      id: [{value: undefined, disabled: true}],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      description: ['', [Validators.maxLength(2000)]],
+      price: [ 0, [Validators.required, Validators.min(0)]],
+      category: [undefined, [Validators.required]]
+    })
+  }
+
+  private updateForm(item: items) :void{
+    this.itemForm?.patchValue({
+      id: item.id ,
+      name: item.name ,
+      description: item.description ,
+      price: item.price ,
+      category: new Category(item.categoryId!, item.categoryName!) ,
+    })
+  }
+
+  private createFrom(): items {
+    return {
+      ...this.item,
+      id: this.itemForm?.get(['id'])!.value,
+      name: this.itemForm?.get(['name'])!.value,
+      description: this.itemForm?.get(['description'])!.value,
+      price: this.itemForm?.get(['price'])!.value,
+      image: this.item!.image,
+      categoryId: this.itemForm?.get(['category'])!.value.id,
+      categoryName: this.itemForm?.get(['category'])!.value.name,
+    };
   }
 
   private initializeItem():void {
