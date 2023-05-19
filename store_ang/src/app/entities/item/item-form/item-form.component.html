@@ -12,39 +12,63 @@
         <label for="">
             Id
         </label>
-        <input type="number" [(ngModel)]="item.id" class="form-control" id="price" #price="ngModel" name="id">
+        <input disabled type="number" [(ngModel)]="item.id" class="form-control" id="price" #price="ngModel" name="id">
     </div>
+
     <!--Catgeoria ID-->
     <div class="form-group">
         <label for="">
             Categoria
         </label>
-        <input type="text" [(ngModel)]="item.categoryId" class="form-control" id="categoryId" name="categoryId" #categoryId="ngModel">
+        <p-autoComplete type="text" [(ngModel)]="selectedCategory" [suggestions]="categories" (onSelect)="categorySelected()" name="selectedCategory" (completedMethod)="getAllCategories($event)" fiel="name" (onClear)="categoryUnselected()" [required]="true" [forceSelection]="true"></p-autoComplete>
     </div>
+    
     <!--Nombre-->
     <div class="form-group">
         <label for="">
             Nombre
         </label>
-        <input type="text" [(ngModel)]="item.name" class="form-control" id="name" name="name" #name="ngModel">
+        <input type="text" [(ngModel)]="item.name" class="form-control" id="name" name="name" #name="ngModel" required
+            minlength="3" maxlength="100">
+    </div>
+    <!--Validation name-->
+    <div *ngIf="(name.dirty && name.errors)">
+        <small class="form-text text-danger"
+        *ngIf="name.errors['required']">
+        Este campo es requerido
+        </small>
+        <small class="form-text text-danger"
+        *ngIf="name.errors['minlength']">
+        Tiene que tener una longitud minima de 3 caracteres.
+        </small>
     </div>
     <!--Descripción-->
     <div class="form-group">
         <label for="">
             Description
         </label>
-        <input type="text" [(ngModel)]="item.description" class="form-control" name="description" id="description" #description="ngModel">
+        <input type="text" [(ngModel)]="item.description" class="form-control" name="description" id="description"
+            #description="ngModel" maxlength="2000">
     </div>
-     <!--Precio-->
-     <div class="form-group">
+    <!--Precio-->
+    <div class="form-group">
         <label for="">
             Price
         </label>
-        <input type="text" [(ngModel)]="item.price" class="form-control" id="price" name="price" #price="ngModel">
+        <input type="text" [(ngModel)]="item.price" class="form-control" id="price" name="price" #price="ngModel"
+            required minlength="0">
     </div>
-
-     <!--Imagen-->
-     <div class="form-group">
+    <!--Validation price-->
+    <div *ngIf="(price.dirty && price.errors)">
+        <small class="form-text text-danger" *ngIf="price.errors['required']">
+            Este campo es requerido
+        </small>
+        <small class="form-text text-danger" *ngIf="price.errors['min']">
+            El valor debe ser positivo
+        </small>
+    </div>
+    <!--Imagen-->
+    <div class="form-group">
         <label for="">
             image
         </label>
@@ -52,7 +76,6 @@
     </div>
 
     <div class="buttonForm">
-        <button (click)="saveItem()">Guardar</button>
+        <button (click)="saveItem()" [disabled]="itemForm.invalid">Guardar</button>
     </div>
 </form>
-

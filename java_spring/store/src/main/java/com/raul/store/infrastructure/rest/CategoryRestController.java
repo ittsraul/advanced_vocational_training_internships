@@ -17,13 +17,18 @@ public class CategoryRestController {
         this.categoryService = categoryService;
     }
 
-
-
     @GetMapping(value = "/categories", produces = "aplication/json")
-    ResponseEntity<List<CategoryDTO>> getAllCartegories(){
-        List<CategoryDTO> categories = this.categoryService.getAllCategories();
+    ResponseEntity<List<CategoryDTO>> getAllCartegories(@RequestParam(name="partialName", required = false) String partialName){
+        List<CategoryDTO> categories;
+        if(partialName == null){
+            categories = this.categoryService.getAllCategories();
+        }else{
+            categories = this.categoryService.getAllCategoriesByName(partialName);
+        }
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+
+
 
     @PostMapping(value = "/categories", produces = "application/json", consumes = "application/json")
     ResponseEntity<CategoryDTO> insertCategory(@RequestBody CategoryDTO categoryDTO){

@@ -14,14 +14,14 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.11'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:2.7.11'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.7.11'
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 	runtimeOnly 'com.h2database:h2'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.7.11'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.11'
 }
 
 tasks.named('test') {
