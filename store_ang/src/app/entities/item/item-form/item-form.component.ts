@@ -63,6 +63,51 @@ constructor(private route : ActivatedRoute, private itemService: ItemService, pr
     this.item!.categoryName = undefined;
   }
 
+  public includeImageInItems(event : any) :void{
+    const inputFile = event.target as HTMLInputElement;
+   const file: File | null = inputFile.files?.item(0) ?? null;
+
+    this.readFileAsString(file!).then((result) =>{
+      const imageType: string = this.getImageType(result);
+      console.log(imageType);
+      const ImageBase64: string = this.getImageBase64(result);
+      console.log(ImageBase64);
+
+      this.item!.image = ImageBase64;
+    },
+    (error) => {
+      console.log("No se puede cargar la imagen"); 
+    })
+  }
+
+  public readFileAsString(file: File){
+    return new Promise<string>(function(resolve, reject) {
+      let reader: FileReader = new FileReader();
+      reader.readAsDataURL(file)
+      reader.onload = function(){
+        resolve(this.result as string)
+      }  
+    
+    });
+  }
+
+  private getImageType(imageString :string) :string{
+    const imageStringParts :string[] = imageString.split(",");
+    if (imageStringParts.length == 2) {
+      return imageStringParts[0];
+    } else {
+      return "";
+    }
+  }
+
+  private getImageBase64(imageString :string) :string{
+    const imageStringParts :string[] = imageString.split(",");
+    if (imageStringParts.length == 2) {
+      return imageStringParts[1];
+    } else {
+      return "";
+    }
+  }
  
   private insertItem():void{
     this.itemService.insert(this.item!).subscribe({

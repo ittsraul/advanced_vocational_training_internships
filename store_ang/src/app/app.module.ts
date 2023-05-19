@@ -35,13 +35,13 @@ import { MatCardModule } from '@angular/material/card';
     FormsModule,
     AutoCompleteModule
   ],
-  providers: [
+  /* providers: [
   {
     provide: HTTP_INTERCEPTORS,
     useClass: HttpRequestIntercept,
     multi: true
-  }
-],
+  } 
+],*/
   bootstrap: [AppComponent]
 })
 export class AppModule { }

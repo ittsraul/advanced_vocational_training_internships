@@ -72,7 +72,8 @@
         <label for="">
             image
         </label>
-        <input type="text" [(ngModel)]="item.image" class="form-control" id="image" name="image" #image="ngModel">
+        <input type="file" class="form-control" id="image" name="image" (change)="includeImageInItems($event)">
+        <img *ngIf="item.image" [src]="'{{item.image}}'" alt="">
     </div>
 
     <div class="buttonForm">
