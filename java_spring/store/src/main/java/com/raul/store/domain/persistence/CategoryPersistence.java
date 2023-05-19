@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+
 public interface CategoryPersistence {
     List<Category> getAllCategories();
     Optional<Category> getCategorieById(Long categoryId);

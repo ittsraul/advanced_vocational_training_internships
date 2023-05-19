@@ -1,1 +1,58 @@
-<p>item-form works!</p>
+<h1>Ficha de articulo {{itemId}} {{node}}</h1>
+
+<!-- 
+    Previsualización json
+    <pre>
+    {{item | json}}
+</pre> -->
+
+<form *ngIf="item" #itemsForm="ngForm" name="itemForm" role="form" ngvalidate autocomplete="off">
+    <!--id: solo visible si estamos en edicion-->
+    <div class="form-group">
+        <label for="">
+            Id
+        </label>
+        <input type="number" [(ngModel)]="item.id" class="form-control" id="price" #price="ngModel" name="id">
+    </div>
+    <!--Catgeoria ID-->
+    <div class="form-group">
+        <label for="">
+            Categoria
+        </label>
+        <input type="text" [(ngModel)]="item.categoryId" class="form-control" id="categoryId" name="categoryId" #categoryId="ngModel">
+    </div>
+    <!--Nombre-->
+    <div class="form-group">
+        <label for="">
+            Nombre
+        </label>
+        <input type="text" [(ngModel)]="item.name" class="form-control" id="name" name="name" #name="ngModel">
+    </div>
+    <!--Descripción-->
+    <div class="form-group">
+        <label for="">
+            Description
+        </label>
+        <input type="text" [(ngModel)]="item.description" class="form-control" name="description" id="description" #description="ngModel">
+    </div>
+     <!--Precio-->
+     <div class="form-group">
+        <label for="">
+            Price
+        </label>
+        <input type="text" [(ngModel)]="item.price" class="form-control" id="price" name="price" #price="ngModel">
+    </div>
+
+     <!--Imagen-->
+     <div class="form-group">
+        <label for="">
+            image
+        </label>
+        <input type="text" [(ngModel)]="item.image" class="form-control" id="image" name="image" #image="ngModel">
+    </div>
+
+    <div class="buttonForm">
+        <button (click)="saveItem()">Guardar</button>
+    </div>
+</form>
+

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Pageable;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ItemRestController {
@@ -21,7 +22,7 @@ public class ItemRestController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/items", produces = "application/json")
+    @GetMapping(value = "/items-old", produces = "application/json")
     ResponseEntity<List<ItemDTO>>getAllItems(){
         List <ItemDTO> items = this.itemService.getAllItems();
         return new ResponseEntity<>(items, HttpStatus.OK);
@@ -46,5 +47,31 @@ public class ItemRestController {
     ResponseEntity<ItemDTO> insertItem(@RequestBody ItemDTO itemDTO){
         ItemDTO itemSaved = this.itemService.saveItem(itemDTO);
         return new ResponseEntity<>(itemSaved, HttpStatus.CREATED);
+    }
+
+    @CrossOrigin
+    @PatchMapping(value = "/items", produces = "application/json", consumes = "application/json")
+    ResponseEntity<ItemDTO> updateItem(@RequestBody ItemDTO itemDTO){
+        ItemDTO itemUpdated = this.itemService.saveItem(itemDTO);
+        return new ResponseEntity<>(itemUpdated, HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @DeleteMapping(value = "/items/{itemId}")
+    ResponseEntity<?>deleteItemById(@PathVariable Long itemId){
+        this.itemService.deleteItems(itemId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/items/{itemId}")
+    ResponseEntity<ItemDTO>getItemById(@PathVariable Long itemId){
+        Optional<ItemDTO> item = this.itemService.getItemById(itemId);
+        if(item.isPresent()){
+            return new ResponseEntity<>(item.get(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 }

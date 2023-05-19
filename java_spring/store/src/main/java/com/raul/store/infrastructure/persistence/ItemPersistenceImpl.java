@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.raul.store.infrastructure.specs.ItemSpecification;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class ItemPersistenceImpl implements ItemPersistence {
     private final ItemRepository itemRepo;
 

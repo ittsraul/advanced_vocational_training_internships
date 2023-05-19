@@ -72,4 +72,6 @@ public class ItemServiceImpl implements ItemService {
     public void deleteCategory(Long itemId) {
         this.itemPersistence.deleteItem(itemId);
     }
+
+
 }
