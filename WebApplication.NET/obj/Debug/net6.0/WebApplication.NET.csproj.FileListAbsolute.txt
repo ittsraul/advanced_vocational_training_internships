@@ -1,0 +1,7 @@
+C:\Proyects_Raul\advanced_vocational_training_internships\WebApplication.NET\obj\Debug\net6.0\WebApplication.NET.csproj.AssemblyReference.cache
+C:\Proyects_Raul\advanced_vocational_training_internships\WebApplication.NET\obj\Debug\net6.0\WebApplication.NET.GeneratedMSBuildEditorConfig.editorconfig
+C:\Proyects_Raul\advanced_vocational_training_internships\WebApplication.NET\obj\Debug\net6.0\WebApplication.NET.AssemblyInfoInputs.cache
+C:\Proyects_Raul\advanced_vocational_training_internships\WebApplication.NET\obj\Debug\net6.0\WebApplication.NET.AssemblyInfo.cs
+C:\Proyects_Raul\advanced_vocational_training_internships\WebApplication.NET\obj\Debug\net6.0\WebApplication.NET.csproj.CoreCompileInputs.cache
+C:\Proyects_Raul\advanced_vocational_training_internships\WebApplication.NET\obj\Debug\net6.0\WebApplication.NET.MvcApplicationPartsAssemblyInfo.cs
+C:\Proyects_Raul\advanced_vocational_training_internships\WebApplication.NET\obj\Debug\net6.0\WebApplication.NET.MvcApplicationPartsAssemblyInfo.cache
