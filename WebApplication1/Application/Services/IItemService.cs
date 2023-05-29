@@ -2,7 +2,8 @@
 
 namespace WebApplication1.Application.Services
 {
-    public interface IItemService:IGenericService<ItemDto>
+    public interface IItemService : IGenericService<ItemDto>
     {
+        List<ItemDto> GetAllByCategoryId(long categoryId);
     }
 }

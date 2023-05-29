@@ -7,8 +7,8 @@ namespace WebApplication1.Application.Services
         void Delete(long id);
         List<D> GetAll();
         D Get(long id);
-        D Insert(D categoryDto);
+        D Insert(D Dto);
 
-        D Update(D categoryDto);
+        D Update(D Dto);
     }
 }

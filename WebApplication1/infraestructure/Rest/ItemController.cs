@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Application.Dtos;
 using WebApplication1.Application.Services;
-using WebApplication1.Domain.persistence;
+
 
 namespace WebApplication1.infraestructure.Rest
 {
@@ -10,8 +10,22 @@ namespace WebApplication1.infraestructure.Rest
     [ApiController]
     public class ItemController : GenericCrudController<ItemDto>
     {
-        public ItemController(IItemRepository service) : base(service)
+        public ItemController(IItemService service) : base(service)
         {
+        }
+
+
+        [NonAction]
+        public override ActionResult<IEnumerable<ItemDto>> Get()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("store/categories/{categoryId}/items")]
+        [Produces("application/json")]
+        public ActionResult<IEnumerable <ItemDto>> GetAllFromCategory(long categoryId) {
+            var categoriesDto = ((IItemService)_service).GetAllByCategoryId(categoryId);
+            return Ok(categoriesDto);
         }
     }
 }
