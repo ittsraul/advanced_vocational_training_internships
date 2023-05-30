@@ -21,6 +21,7 @@ builder.Services.AddAutoMapper(typeof(ItemMapperProfile));
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddLogging();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddEndpointsApiExplorer();

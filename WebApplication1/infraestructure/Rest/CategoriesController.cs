@@ -10,56 +10,36 @@ namespace WebApplication1.infraestructure.Rest
     [ApiController]
     public class CategoriesController : GenericCrudController<CategoryDto>
     {
-        private readonly ICategoryService _categoryService;
+        private readonly ILogger<CategoriesController> _logger;
 
-        public CategoriesController(ICategoryService categoryService):base(categoryService)
+        public CategoriesController(ICategoryService categoryService, ILogger<CategoriesController> logger) : base(categoryService)
         {
-
+            _logger = logger;
         }
-
-    [HttpGet]
-
-        public ActionResult<CategoryDto> GetCategories()
-        {
-            var categories = _categoryService.GetAll();
-            return Ok(categories);
-        }
-        [HttpGet("{id}")]
-        [Produces("application/json")]
-        public ActionResult<CategoryDto> Get(long id)
+ 
+        public override ActionResult<CategoryDto> Insert(CategoryDto categoryDto)
         {
             try
             {
-                CategoryDto categoryDto = _categoryService.Get(id);
-                return Ok(categoryDto);
+                return base.Insert(categoryDto);
             }
             catch (ElementNotFoundException)
             {
-                return NotFound();
+                _logger.LogInformation("Invalid image inserting category with dto name", categoryDto.Name);
+                return BadRequest();
             }
-        }
-
-        [HttpPost]
-        [Produces("application/json")]
-        [Consumes("application/json")]
-        public ActionResult<CategoryDto> Insert(CategoryDto categoryDto)
+            
+        public override ActionResult<CategoryDto> Update(CategoryDto categoryDto)
         {
-            if (categoryDto == null)
+            try
+            {
+                return base.Insert(categoryDto);
+            }catch (ElementNotFoundException)
+            {
+                _logger.LogInformation("Invalid image inserting category with dto name", categoryDto.Name);
                 return BadRequest();
-            categoryDto = _categoryService.Insert(categoryDto);
-            return CreatedAtAction(nameof(Get), new { id = categoryDto.Id }, categoryDto);
-        }
-        [HttpPut]
-        [Produces("application/json")]
-        [Consumes("application/json")]
-        public ActionResult<CategoryDto> Update(CategoryDto categoryDto)
-        {
-            if (categoryDto == null)
-                return BadRequest();
-            categoryDto = _categoryService.Update(categoryDto);
-            return CreatedAtAction(nameof(Get), new { id = categoryDto.Id }, categoryDto);
-        }
-        [HttpDelete("{id}")]
+            }
+        
         public ActionResult Delete(long id)
         {
             try
