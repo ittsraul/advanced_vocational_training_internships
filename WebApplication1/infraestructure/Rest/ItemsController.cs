@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication1.Application.Dtos;
 using WebApplication1.Application.Services;
+using WebApplication1.infraestructure.Rest;
 
 
 namespace WebApplication1.infraestructure.Rest
@@ -8,10 +9,12 @@ namespace WebApplication1.infraestructure.Rest
 
     [Route("store/[controller]")]
     [ApiController]
-    public class ItemController : GenericCrudController<ItemDto>
+    public class ItemsController : GenericCrudController<ItemDto>
     {
-        public ItemController(IItemService service) : base(service)
+        private IItemService _itemService;
+        public ItemsController(IItemService service) : base(service)
         {
+            _itemService = service;
         }
 
 
@@ -34,7 +37,7 @@ namespace WebApplication1.infraestructure.Rest
                     TotalCount = page.TotalCount,
                     Data = page
                    };
-                return Ok(response);
+                return ItemsController(response);
     }catch(MalformedFilterException){
             return BadRequest();    
         }

@@ -9,9 +9,9 @@ namespace WebApplication1.infraestructure.persistence
         protected readonly DbContext _context;
         protected readonly DbSet<T> _dbSet;
 
-        public GenericRepository(StoreContext storeContext)
+        public GenericRepository(DbContext context)
         {
-            _context = storeContext;
+            _context = context;
             _dbSet = _context.Set<T>();
         }
 

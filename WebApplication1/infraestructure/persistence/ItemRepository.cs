@@ -6,6 +6,7 @@ using WebApplication1.Domain.Entites;
 using WebApplication1.Domain.persistence;
 using WebApplication1.infraestructure.Specs;
 using WebApplication11.infraestructure.persistence;
+using static WebApplication1.infraestructure.Specs.SpecificationParser;
 
 namespace WebApplication1.infraestructure.persistence
 {
@@ -76,23 +77,51 @@ namespace WebApplication1.infraestructure.persistence
             return item;
         }
 
-        public PagedList<Item> GetItemsByCriteriaPaged(string? filter, PaginationParameters paginationParameters)
+        public List<ItemDto> GetByCategoryID(long categoryId)
         {
-            var items = _storeContext.Item.Include(i => i.Category).AsQueryable();
-            if (!string.IsNullOrEmpty(filter))
+            var item = _dbSet.Where(i => i.CategoryId == categoryId).Select(i => new ItemDto
             {
-                Specification<Item> specification = _specificationParser.ParseSpecification(filter);
-                items = specification.ApplySpecification(items);
-            }
-
-            if (!string.IsNullOrEmpty(paginationParameters.Sort))
+                Id = i.Id,
+                Name = i.Name,
+                Description = i.Description,
+                Price = i.Price,
+                Image = i.Image,
+                CategoryId = categoryId,
+                CategoryName = i.Category.Name
+            }).ToList();
+            if (item == null)
             {
-                items = ApplySortOrder(items, paginationParameters.Sort);
+                return new List<ItemDto>();
             }
-
-            return PagedList<Item>.ToPagedList(items, paginationParameters.PageNumber, paginationParameters.PageSize);
-
+            return item.ToList();
         }
     }
+    public List<ItemDto> GeItemsByCriteriaPaged(string filter, PaginationParameters paginationParameters)
+    {
+        var items = _storeContext.Items.AsQueryable();
+        if (!string.IsNullOrEmpty(filter))
+        {
+            Specification<Item> specification = _specificationParser.ParseSpecification(FilterLoggingBuilderExtensions);
+            items = specification.ApplySpecification(items);
+        }
+        if (!string.IsNullOrEmpty(paginationParameters.Sort))
+        {
+            items = ApplySortOrder(items, paginationParameters.Sort);
+        }
+        var itemsDto = items.Select(items => new ItemDto
+        {
+            Id = i.Id,
+            Name = i.Name,
+            Description = i.Description,
+            Price = i.Price,
+            Image = i.Image,
+            CategoryId = categoryId,
+            CategoryName = i.Category.Name
+        });
+
+        return PagedList<ItemDto>.isPaggedList(itemsDto, paginationParameters.PageNumber, PaginationParameters.PageSize);
+
+    }
+}
 }
 
