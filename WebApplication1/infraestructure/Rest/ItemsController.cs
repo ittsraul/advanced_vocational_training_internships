@@ -12,6 +12,7 @@ namespace WebApplication1.infraestructure.Rest
     public class ItemsController : GenericCrudController<ItemDto>
     {
         private IItemService _itemService;
+
         public ItemsController(IItemService service) : base(service)
         {
             _itemService = service;
