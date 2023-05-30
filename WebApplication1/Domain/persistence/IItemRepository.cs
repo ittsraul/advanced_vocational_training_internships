@@ -7,7 +7,7 @@ namespace WebApplication11.infraestructure.persistence
 
 {
    
-    public class ItemRepository : GenericRepository<Item>, IItemRepository { 
+    public interface ItemRepository : GenericRepository<Item>, IItemRepository { 
 
     public  ItemRepository(StoreContext storeContext) : base(storeContext)
     {

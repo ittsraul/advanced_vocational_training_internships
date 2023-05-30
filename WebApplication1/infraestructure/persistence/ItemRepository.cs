@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
+using WebApplication1.Application;
 using WebApplication1.Application.Dtos;
 using WebApplication1.Domain.Entites;
 using WebApplication1.Domain.persistence;
+using WebApplication1.infraestructure.Specs;
 using WebApplication11.infraestructure.persistence;
 
 namespace WebApplication1.infraestructure.persistence
@@ -10,9 +13,11 @@ namespace WebApplication1.infraestructure.persistence
     public class ItemRepository : GenericRepository<Item>, IItemRepository
     {
         private StoreContext _storeContext;
-        public ItemRepository(StoreContext storeContext) : base(storeContext)
+        private readonly ISpecificationParser<Item> specificationParser;   
+        public ItemRepository(StoreContext storeContext, ISpecificationParser<Item> specificationParser) : base(storeContext)
         {
             _storeContext = storeContext;
+            _specificationParser = specificationParser;
         }
 
         public override Item GetById(long id)
@@ -26,7 +31,7 @@ namespace WebApplication1.infraestructure.persistence
             return item;
         }
 
-        public List<ItemDto> GetByCategoryID(long categoryId)
+        public List<ItemDto> GetByCategoryId(long categoryId)
         {
             var item = _dbSet.Where(i => i.CategoryId == categoryId).Select(i => new ItemDto
             {
@@ -44,5 +49,50 @@ namespace WebApplication1.infraestructure.persistence
             }
             return item.ToList();
         }
+
+        public override Item GetById(int id)
+        {
+            var item = _dbSet.Find(id);
+            if (item == null)
+            {
+                throw new NotImplementedException();
+            }
+            return item;
+        }
+
+        public override Item Insert(Item item)
+        {
+            _storeContext.Add(item);
+            _storeContext.SaveChanges();
+            _storeContext.Entry(item).Reference(i => i.Category).Load();
+            return item;
+        }
+
+        public override Item Update(Item item)
+        {
+            _storeContext.Update(item);
+            _storeContext.SaveChanges();
+            _storeContext.Entry(item).Reference(i => i.Category).Load();
+            return item;
+        }
+
+        public PagedList<Item> GetItemsByCriteriaPaged(string? filter, PaginationParameters paginationParameters)
+        {
+            var items = _storeContext.Item.Include(i => i.Category).AsQueryable();
+            if (!string.IsNullOrEmpty(filter))
+            {
+                Specification<Item> specification = _specificationParser.ParseSpecification(filter);
+                items = specification.ApplySpecification(items);
+            }
+
+            if (!string.IsNullOrEmpty(paginationParameters.Sort))
+            {
+                items = ApplySortOrder(items, paginationParameters.Sort);
+            }
+
+            return PagedList<Item>.ToPagedList(items, paginationParameters.PageNumber, paginationParameters.PageSize);
+
+        }
     }
 }
+
